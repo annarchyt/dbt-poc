@@ -59,11 +59,11 @@ aum_efr_final as (
 
         aum_data.FEE_BEARING_AUM,
 
-        aum_data.MANAGER as aum_manager,
+        aum_data.MANAGER_id as aum_manager,
 
         aum_data.NAME_OF_FUND_REIT_TRUST,
 
-        efr_data.MANAGER as efr_manager,
+        efr_data.MANAGER_id as efr_manager,
 
         efr_data.NAME_OF_FUND,
 
