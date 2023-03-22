@@ -1,0 +1,79 @@
+with aum_data as (
+
+    select
+        
+        AUM_IN_GROUP_CURRENCY,
+
+        EQUITY_RAISED,
+
+        FEE_BEARING_AUM,
+
+        MANAGER as manager_id,
+
+        NAME_OF_FUND_REIT_TRUST,
+
+        NON_FEE_BEARING_AUM,
+        SECTOR
+ 
+    from DB_FUNDS.MANAGER.AUM
+
+),
+
+efr_data as (
+
+    select
+        
+        CURRENCY,
+
+        EQUITY_AT_END_OF_YEAR,
+
+        EQUITY_AT_START_OF_YEAR,
+
+        EQUITY_RAISED_IN_FUND_CURRENCY,
+
+        EQUITY_RAISED_IN_SGD,
+
+        HISTORICAL_EXCHANGE_RATE,
+
+        INTERNAL_OR_EXTERNAL,
+
+        MANAGER as manager_id,
+
+        NAME_OF_FUND,
+
+        NAME_OF_INVESTOR,
+
+        QUARTER
+
+    from DB_FUNDS.INVESTOR.EFR
+
+),
+
+aum_efr_final as (
+
+    select
+        
+        aum_data.AUM_IN_GROUP_CURRENCY,
+
+        aum_data.EQUITY_RAISED,
+
+        aum_data.FEE_BEARING_AUM,
+
+        aum_data.MANAGER as aum_manager,
+
+        aum_data.NAME_OF_FUND_REIT_TRUST,
+
+        efr_data.MANAGER as efr_manager,
+
+        efr_data.NAME_OF_FUND,
+
+        efr_data.NAME_OF_INVESTOR,
+
+        efr_data.QUARTER
+    from aum_data
+
+    left join efr_data using (manager_id)
+
+)
+
+select * from aum_efr_final
